@@ -3,10 +3,10 @@ package com.ecommerce.project.controller
 import com.ecommerce.project.model.Category
 import com.ecommerce.project.service.CategoryService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 
 @RestController()
 class CategoryController(
@@ -22,5 +22,16 @@ class CategoryController(
         categoryService.createCategory(category)
         return "Category added successfully"
     }
+
+    @DeleteMapping("/api/admin/categories/{categoryId}")
+    fun deleteCategory(@PathVariable categoryId: Long): ResponseEntity<String> {
+        return try {
+            val deleteStatus = categoryService.deleteCategory(categoryId)
+            ResponseEntity(deleteStatus, HttpStatus.OK)
+        } catch (e: ResponseStatusException) {
+            ResponseEntity(e.reason, e.statusCode)
+        }
+    }
+
 }
 

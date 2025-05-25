@@ -17,6 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void createCategory(Category category) {
+        category.setCategoryId(categories.size() + 1);
         categories.add(category);
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
-
 @RestController()
 class CategoryController {
     private val categories: MutableList<Category> = mutableListOf()
@@ -15,7 +14,6 @@ class CategoryController {
     fun getAllCategories(): List<Category> {
         return categories
     }
-
 
     @PostMapping("api/public/categories")
     fun createCategory(@RequestBody category: Category): String {

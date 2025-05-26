@@ -9,21 +9,22 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController()
+@RequestMapping("/api")
 class CategoryController(
     @Autowired private val categoryService: CategoryService
 ) {
-    @GetMapping("api/public/categories")
+    @GetMapping("/public/categories")
     fun getAllCategories(): List<Category> {
         return categoryService.allCategories
     }
 
-    @PostMapping("api/public/categories")
+    @PostMapping("/public/categories")
     fun createCategory(@RequestBody category: Category): String {
         categoryService.createCategory(category)
         return "Category added successfully"
     }
 
-    @DeleteMapping("/api/admin/categories/{categoryId}")
+    @DeleteMapping("/admin/categories/{categoryId}")
     fun deleteCategory(@PathVariable categoryId: Long): ResponseEntity<String> {
         return try {
             val deleteStatus = categoryService.deleteCategory(categoryId)
